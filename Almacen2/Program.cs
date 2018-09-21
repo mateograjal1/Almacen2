@@ -23,7 +23,7 @@ namespace Almacen2
             {
                 Debug.WriteLine("No hay usuarios");
                 MessageBox.Show(null, "No se detecto ningun usuario. Por favor ingrese administrador", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Usuario u = new Usuario();
+                Usuario u = new Usuario(false);
                 u.ShowDialog();
                 if (u.DialogResult == DialogResult.OK)
                 {

@@ -147,6 +147,17 @@ namespace Almacen2
             }
         }
 
+        public static void BorrarEmpleado(int empleadoId)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("BorrarEmpleado", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Id", empleadoId);
+                comando.ExecuteNonQuery();
+            }
+        }
+
         public static int ObtenerEmpleadoId(string usuario)
         {
             if (Conectar())
@@ -178,6 +189,37 @@ namespace Almacen2
             return null;
         }
 
+        public static DataTable ObtenerEmpleado(int id)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ObtenerEmpleado", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Id", id);
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return dt;
+            }
+            return null;
+        }
+
+        //ActualizarEmpleado @Id int, @Cedula varchar(15), @Nombre varchar(20), @Apellido varchar(20), @CargoId int
+        public static void ActualizarEmpleado(int id, string cedula, string nombre, string apellido, int cargo)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ActualizarEmpleado", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Id", id);
+                comando.Parameters.AddWithValue("Cedula", cedula);
+                comando.Parameters.AddWithValue("Nombre", nombre);
+                comando.Parameters.AddWithValue("Apellido", apellido);
+                comando.Parameters.AddWithValue("CargoId", cargo);
+                comando.ExecuteNonQuery();
+            }
+        }
 
     }
 }

@@ -22,10 +22,31 @@ namespace Almacen2
         public string UsuarioNuevo { get => usuario; set => usuario = value; }
         public string Contrasena { get => contrasena; set => contrasena = value; }
 
-        public Usuario()
+        public Usuario(bool habilitarCargo)
         {
             InitializeComponent();
-            cbCargo.Enabled = false;
+            if (!habilitarCargo)
+            {
+                cbCargo.Enabled = false;
+            }
+            else
+            {
+                cbCargo.Enabled = true;
+            }
+        }
+
+        public Usuario(int id, string cedula, string nombre, string apellido, int cargo, string usuarioNuevo)
+        {
+            InitializeComponent();
+            txtId.Text = id.ToString();
+            txtCedula.Text = cedula;
+            txtNombre.Text = nombre;
+            txtApellido.Text = apellido;
+            setCargo(cargo);
+            txtUsuario.Text = usuarioNuevo;
+            txtUsuario.Enabled = false;
+            txtContrasena.Enabled = false;
+            txtContrasenaConf.Enabled = false;
         }
 
         private void Usuario_Load(object sender, EventArgs e)
@@ -37,6 +58,17 @@ namespace Almacen2
             cargos.Tables.Add(dt);
             cbCargo.DataSource = cargos.Tables[0].DefaultView;
             cbCargo.DisplayMember = "Cargo";
+        }
+
+        private void setCargo(int cargo)
+        {
+            for (int i = 0; i < cargos.Tables[0].Rows.Count; i++)
+            {
+                if (cargo == (int)cargos.Tables[0].Rows[0][0])
+                {
+                    cbCargo.SelectedIndex = cargo;
+                }
+            }
         }
 
         private bool validar()
