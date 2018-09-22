@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.butCancelar = new System.Windows.Forms.Button();
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.butAceptar = new System.Windows.Forms.Button();
-            this.butCancelar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,14 +60,36 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(292, 81);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // label1
+            // butCancelar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Usuario";
+            this.butCancelar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.butCancelar.Location = new System.Drawing.Point(149, 55);
+            this.butCancelar.Name = "butCancelar";
+            this.butCancelar.Size = new System.Drawing.Size(140, 23);
+            this.butCancelar.TabIndex = 3;
+            this.butCancelar.Text = "Cancelar";
+            this.butCancelar.UseVisualStyleBackColor = true;
+            this.butCancelar.Click += new System.EventHandler(this.butCancelar_Click);
+            // 
+            // txtContrasena
+            // 
+            this.txtContrasena.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtContrasena.Location = new System.Drawing.Point(149, 29);
+            this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.PasswordChar = '*';
+            this.txtContrasena.Size = new System.Drawing.Size(140, 20);
+            this.txtContrasena.TabIndex = 1;
+            // 
+            // butAceptar
+            // 
+            this.butAceptar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.butAceptar.Location = new System.Drawing.Point(3, 55);
+            this.butAceptar.Name = "butAceptar";
+            this.butAceptar.Size = new System.Drawing.Size(140, 23);
+            this.butAceptar.TabIndex = 2;
+            this.butAceptar.Text = "Aceptar";
+            this.butAceptar.UseVisualStyleBackColor = true;
+            this.butAceptar.Click += new System.EventHandler(this.butAceptar_Click);
             // 
             // label2
             // 
@@ -84,38 +106,16 @@
             this.txtUsuario.Location = new System.Drawing.Point(149, 3);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(140, 20);
-            this.txtUsuario.TabIndex = 1;
+            this.txtUsuario.TabIndex = 0;
             // 
-            // txtContrasena
+            // label1
             // 
-            this.txtContrasena.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtContrasena.Location = new System.Drawing.Point(149, 29);
-            this.txtContrasena.Name = "txtContrasena";
-            this.txtContrasena.PasswordChar = '*';
-            this.txtContrasena.Size = new System.Drawing.Size(140, 20);
-            this.txtContrasena.TabIndex = 2;
-            // 
-            // butAceptar
-            // 
-            this.butAceptar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.butAceptar.Location = new System.Drawing.Point(3, 55);
-            this.butAceptar.Name = "butAceptar";
-            this.butAceptar.Size = new System.Drawing.Size(140, 23);
-            this.butAceptar.TabIndex = 1;
-            this.butAceptar.Text = "Aceptar";
-            this.butAceptar.UseVisualStyleBackColor = true;
-            this.butAceptar.Click += new System.EventHandler(this.butAceptar_Click);
-            // 
-            // butCancelar
-            // 
-            this.butCancelar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.butCancelar.Location = new System.Drawing.Point(149, 55);
-            this.butCancelar.Name = "butCancelar";
-            this.butCancelar.Size = new System.Drawing.Size(140, 23);
-            this.butCancelar.TabIndex = 2;
-            this.butCancelar.Text = "Cancelar";
-            this.butCancelar.UseVisualStyleBackColor = true;
-            this.butCancelar.Click += new System.EventHandler(this.butCancelar_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Usuario";
             // 
             // InicioSesion
             // 

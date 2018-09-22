@@ -14,6 +14,7 @@ namespace Almacen2
     {
         private int empleado;
         private string usuario;
+        private int cargo;
 
         public VentanaPrincipal(string usuario)
         {
@@ -25,6 +26,34 @@ namespace Almacen2
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
             ConexionBaseDeDatos.Logear(empleado, usuario, "Inicio sesion");
+            cargo = ConexionBaseDeDatos.ObtenerCargo(empleado);
+            switch (cargo)
+            {
+                case 1:
+                    inventarioToolStripMenuItem.Enabled = true;
+                    productosToolStripMenuItem.Enabled = true;
+                    usuariosToolStripMenuItem.Enabled = true;
+                    historialToolStripMenuItem.Enabled = true;
+                    break;
+                case 2:
+                    inventarioToolStripMenuItem.Enabled = true;
+                    productosToolStripMenuItem.Enabled = true;
+                    usuariosToolStripMenuItem.Enabled = false;
+                    historialToolStripMenuItem.Enabled = false;
+                    break;
+                case 3:
+                    inventarioToolStripMenuItem.Enabled = true;
+                    productosToolStripMenuItem.Enabled = false;
+                    usuariosToolStripMenuItem.Enabled = false;
+                    historialToolStripMenuItem.Enabled = false;
+                    break;
+                case 4:
+                    inventarioToolStripMenuItem.Enabled = false;
+                    productosToolStripMenuItem.Enabled = false;
+                    usuariosToolStripMenuItem.Enabled = false;
+                    historialToolStripMenuItem.Enabled = false;
+                    break;
+            }
         }
         private void verHistorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -43,6 +72,20 @@ namespace Almacen2
             this.Hide();
             Empleados emp = new Empleados(usuario, empleado, this);
             emp.Show();
+        }
+
+        private void administrarProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Productos p = new Productos(usuario, empleado, this);
+            p.Show();
+        }
+
+        private void inventariarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Inventario i = new Inventario(usuario, empleado, this);
+            i.Show();
         }
     }
 }

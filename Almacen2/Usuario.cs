@@ -14,6 +14,7 @@ namespace Almacen2
         private string usuario;
         private string contrasena;
         private DataSet cargos;
+        private bool validarUsuario = true;
 
         public string Cedula { get => cedula; set => cedula = value; }
         public string Nombre { get => nombre; set => nombre = value; }
@@ -36,17 +37,25 @@ namespace Almacen2
         }
 
         public Usuario(int id, string cedula, string nombre, string apellido, int cargo, string usuarioNuevo)
-        {
+        {            
             InitializeComponent();
+            DataTable dt = ConexionBaseDeDatos.ObtenerCargos();
+            cargos = new DataSet();
+            cargos.Tables.Add(dt);
+            cbCargo.DataSource = cargos.Tables[0].DefaultView;
+            cbCargo.DisplayMember = "Cargo";
             txtId.Text = id.ToString();
             txtCedula.Text = cedula;
             txtNombre.Text = nombre;
             txtApellido.Text = apellido;
             setCargo(cargo);
             txtUsuario.Text = usuarioNuevo;
+            txtContrasena.Text = "********";
+            txtContrasenaConf.Text = "********";
             txtUsuario.Enabled = false;
             txtContrasena.Enabled = false;
             txtContrasenaConf.Enabled = false;
+            validarUsuario = false;
         }
 
         private void Usuario_Load(object sender, EventArgs e)
@@ -75,42 +84,42 @@ namespace Almacen2
         {
             if (String.IsNullOrEmpty(txtCedula.Text))
             {
-                MessageBox.Show(this, "Error", "Error en cedula", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Error en la cedula", "Error en cedula", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if(String.IsNullOrEmpty(txtNombre.Text))
             {
-                MessageBox.Show(this, "Error", "Error en Nombre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Error en el nombre", "Error en Nombre", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (String.IsNullOrEmpty(txtApellido.Text))
             {
-                MessageBox.Show(this, "Error", "Error en Apellido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Error en el apellido", "Error en Apellido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (String.IsNullOrEmpty(txtUsuario.Text))
             {
-                MessageBox.Show(this, "Error", "Error en Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Error en el usuario", "Error en Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            else if (ConexionBaseDeDatos.UsuarioExiste(txtUsuario.Text.Trim()))
+            else if (ConexionBaseDeDatos.UsuarioExiste(txtUsuario.Text.Trim()) && validarUsuario)
             {
-                MessageBox.Show(this, "Error", "Error en Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Usuario ya existe", "Error en Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (String.IsNullOrEmpty(txtContrasena.Text))
             {
-                MessageBox.Show(this, "Error", "Error en Contrasea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Error en la contraseña", "Error en Contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (String.IsNullOrEmpty(txtContrasenaConf.Text))
             {
-                MessageBox.Show(this, "Error", "Error en Contraseña 2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Error en la contraseña", "Error en Contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (txtContrasenaConf.Text != txtContrasena.Text)
             {
-                MessageBox.Show(this, "Error", "Error en Contraseña 2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Las contraseñas deben coincidir", "Error en Contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;

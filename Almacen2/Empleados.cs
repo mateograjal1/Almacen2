@@ -26,7 +26,7 @@ namespace Almacen2
 
         private void Empleados_Load(object sender, EventArgs e)
         {            
-            dgvEmpleados.DataSource = ConexionBaseDeDatos.ObtenerEmpleados();
+            dgvEmpleados.DataSource = ConexionBaseDeDatos.ObtenerEmpleados();            
         }
 
         private void Empleados_FormClosed(object sender, FormClosedEventArgs e)
@@ -64,7 +64,11 @@ namespace Almacen2
         private void butEditar_Click(object sender, EventArgs e)
         {
             int empleado = obtenerSeleccionado();
-            if (empleado != -1)
+            if (empleado == empleadoId)
+            {
+                MessageBox.Show(this, "No se puede editar al empleado con la sesion abierta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (empleado != -1)
             {
                 DataTable dt = ConexionBaseDeDatos.ObtenerEmpleado(empleado);
                 string cedula = dt.Rows[0][0].ToString();
@@ -86,7 +90,11 @@ namespace Almacen2
         private void butBorrar_Click(object sender, EventArgs e)
         {
             int empleado = obtenerSeleccionado();
-            if (empleado != -1)
+            if (empleado == empleadoId)
+            {
+                MessageBox.Show(this, "No se puede borrar al empleado con la sesion abierta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (empleado != -1)
             {
                 DialogResult dr = MessageBox.Show(this, "Esta seguro que quiere borrar el empleado?", "Borrar empleado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)

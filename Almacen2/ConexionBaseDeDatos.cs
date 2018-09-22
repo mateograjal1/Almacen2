@@ -221,5 +221,150 @@ namespace Almacen2
             }
         }
 
+        public static int ObtenerCargo(int id)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ObtenerCargo", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Id", id);
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return (int)dt.Rows[0][0];
+            }
+            return -1;
+        }
+
+        public static DataTable ObtenerProductos()
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ObtenerProductos", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return dt;
+            }
+            return null;
+        }
+
+        public static DataTable ObtenerCategorias()
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ObtenerCategorias", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return dt;
+            }
+            return null;
+        }
+
+        public static void CrearProducto(string nombre, string categoria, string descripcion)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("CrearProducto", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Nombre", nombre);
+                comando.Parameters.AddWithValue("Categoria", categoria);
+                comando.Parameters.AddWithValue("Descripcion", descripcion);
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        public static int ObtenerUltimoProducto()
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ObtenerUltimoProducto", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return (int)dt.Rows[0][0];
+            }
+            return -1;
+        }
+
+        public static void ActualizarProducto(int id, string nombre, string categoria, string descripcion)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ActualizarProducto", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Id", id);
+                comando.Parameters.AddWithValue("Categoria", categoria);
+                comando.Parameters.AddWithValue("Nombre", nombre);
+                comando.Parameters.AddWithValue("Descripcion", descripcion);
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        public static void BorrarProducto(int id)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("BorrarProducto", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Id", id);
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        public static DataTable ObtenerProducto(int producto)
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ObtenerProducto", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("Id", producto);
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return dt;
+            }
+            return null;
+        }
+
+        public static DataTable ObtenerInventario()
+        {
+            if (Conectar())
+            {
+                comando = new SqlCommand("ObtenerInventario", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.ExecuteNonQuery();
+                lector = comando.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return dt;
+            }
+            return null;
+        }
+
+        public static void ActualizarInventario(int[] productos, float[] cantidades)
+        {
+            if (Conectar())
+            {                
+                for (int i = 0; i < productos.Length; i++)
+                {
+                    comando = new SqlCommand("ActualizarInventario", conexion);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("Id", productos[i]);
+                    comando.Parameters.AddWithValue("Cantidad", cantidades[i]);
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
+    
     }
 }
